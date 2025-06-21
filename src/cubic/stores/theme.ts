@@ -7,6 +7,7 @@ import { get_theme_content } from "../themes/themes";
 interface ThemeState {
   currentTheme: FullTheme | null;
   availableThemes: Themes[];
+  themesMeta: Record<string, { name: string }>;
   selectedTheme: Themes | null;
   isLoading: boolean;
   error: string | null;
@@ -16,6 +17,7 @@ interface ThemeState {
 const initialState: ThemeState = {
   currentTheme: null,
   availableThemes: Object.values(Themes),
+  themesMeta: {},
   selectedTheme: null,
   isLoading: false,
   error: null,
@@ -61,6 +63,22 @@ function createThemeStore() {
       }
     },
 
+    async loadAllThemesMeta() {
+      const themes = get(themeState).availableThemes;
+      const metaData: Record<string, { name: string }> = {};
+
+      for (const theme of themes) {
+        try {
+          const themeContent = await get_theme_content(theme);
+          metaData[theme] = { name: themeContent.meta.name };
+        } catch (error) {
+          console.error(`Failed to load meta for theme: ${theme}`, error);
+        }
+      }
+
+      update((state) => ({ ...state, themesMeta: metaData }));
+    },
+
     // Cambiar tema
     async switchTheme(theme: Themes) {
       const currentState = get(themeState);
@@ -71,6 +89,7 @@ function createThemeStore() {
 
     // Obtener tema desde localStorage
     async initializeTheme() {
+      await this.loadAllThemesMeta();
       let savedTheme: Themes | null = null;
 
       if (typeof localStorage !== "undefined") {
@@ -147,6 +166,7 @@ export const currentTheme = derived(
   themeState,
   ($state) => $state.currentTheme,
 );
+export const themesMeta = derived(themeState, ($state) => $state.themesMeta);
 export const selectedTheme = derived(
   themeState,
   ($state) => $state.selectedTheme,
