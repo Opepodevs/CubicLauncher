@@ -1,0 +1,11 @@
+{
+    "language": {
+        "name": "English"
+    },
+    "welcome": {
+        "title": "Welcome to Cubic Launcher",
+        "subtitle": "Create a new instance or play your most recent game",
+        "create_new": "Create new",
+        "play_recent": "Play Recent"
+    }
+} 

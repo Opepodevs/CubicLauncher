@@ -1,0 +1,11 @@
+{
+    "language": {
+        "name": "Español"
+    },
+    "welcome": {
+        "title": "Bienvenido a Cubic Launcher",
+        "subtitle": "Crea una nueva instancia o juega tu juego más reciente",
+        "create_new": "Crear nueva",
+        "play_recent": "Jugar Reciente"
+    }
+} 
