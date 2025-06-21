@@ -99,3 +99,32 @@
 :global(.theme-light) .titlebar {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+.control-button {
+    /* Aumentar el área clickeable */
+    min-width: 32px;
+    min-height: 32px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    border-radius: 4px;
+}
+
+.control-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.control-button.close-button:hover {
+    background-color: #e81123;
+    color: white;
+}
+
+.window-controls {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
