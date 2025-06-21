@@ -4,6 +4,7 @@
     import Logo from "@assets/Logo.svelte";
     import BaseModal from "@components/modals/base_modal.svelte";
     import { currentTheme } from "@stores/theme";
+    import { t } from "@stores/language";
 
     const current_theme = $derived($currentTheme);
 
@@ -28,14 +29,14 @@
             class="launcher-title"
             style="color: {current_theme?.text.primary};"
         >
-            Welcome to Cubic
+            {$t("welcome.title")}
         </h1>
 
         <p
             class="launcher-description"
             style="color: {current_theme?.text.secondary};"
         >
-            Create a new instance or play your most recent one
+            {$t("welcome.subtitle")}
         </p>
 
         <div class="buttons-grid">
@@ -49,7 +50,7 @@
                 "
             >
                 <PlusSquare size="2.25rem" clickable={true} />
-                <span>Create new instance</span>
+                <span>{$t("welcome.create_new_instance")}</span>
             </button>
 
             <button
@@ -62,18 +63,18 @@
                 "
             >
                 <Controller />
-                <span>Play Recent</span>
+                <span>{$t("welcome.play_recent")}</span>
             </button>
         </div>
 
-        <BaseModal {isOpen} title="Create New Instance">
+        <BaseModal {isOpen} title={$t("welcome.create_new_instance_title")}>
             {#snippet children()}
                 <div class="modal-content">
                     <h2 style="color: {current_theme?.text.primary};">
-                        Configure your new instance
+                        {$t("welcome.configure_new_instance")}
                     </h2>
                     <p style="color: {current_theme?.text.secondary};">
-                        Settings will go here...
+                        {$t("welcome.settings_placeholder")}
                     </p>
                 </div>
             {/snippet}
