@@ -2,12 +2,11 @@
     import { type Component } from "svelte";
 
     interface Props {
-        name: string;
         Icon: Component;
         onClick: () => void;
     }
 
-    let { name, Icon, onClick }: Props = $props();
+    let { Icon, onClick }: Props = $props();
 
     const handleClick = () => {
         if (onClick) {
@@ -56,11 +55,5 @@
     .sidebar-item:active {
         transform: translateY(0);
         background: var(--color-accent-active);
-    }
-
-    .icon {
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 0.75rem;
     }
 </style>

@@ -63,11 +63,7 @@
     <div class="instances-container">
         <div class="instances-scroll">
             {#each items as item (item.name)}
-                <SidebarItem
-                    name={item.name}
-                    Icon={item.icon}
-                    onClick={item.onClick}
-                />
+                <SidebarItem Icon={item.icon} onClick={item.onClick} />
             {/each}
         </div>
     </div>
@@ -83,7 +79,6 @@
             on:keydown={(e) => e.key === "Enter" && handleSettingsClick()}
         >
             <SidebarItem
-                name="Settings"
                 Icon={settings}
                 onClick={() => {
                     console.log("xd");

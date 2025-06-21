@@ -66,7 +66,7 @@
             </button>
         </div>
 
-        <BaseModal {isOpen} title="Create New Instance" onclose={handle_close}>
+        <BaseModal {isOpen} title="Create New Instance">
             {#snippet children()}
                 <div class="modal-content">
                     <h2 style="color: {current_theme?.text.primary};">
