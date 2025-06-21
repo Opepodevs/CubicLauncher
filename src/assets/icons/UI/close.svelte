@@ -1,21 +1,25 @@
-<script>
-    import { themeColors } from "@stores/theme";
+<script lang="ts">
+    import { currentTheme } from "@stores/theme";
+    import { derived } from "svelte/store";
+    interface Props {
+        size: string;
+        hover_color?: string;
+    }
+    let { size, hover_color }: Props = $props();
 
-    // Props opcionales
-    export let size = 32;
-    export let hoverColor = null; // Color personalizado para hover
+    let computedHoverColor = $derived(
+        hover_color || $currentTheme?.state.error || "#c74141",
+    );
 </script>
 
 <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    fill={$themeColors?.text.secondary || "#a9a8a9"}
+    fill={$currentTheme?.text.secondary || "#a9a8a9"}
     viewBox="0 0 256 256"
     class="close-icon"
-    style="--hover-color: {hoverColor ||
-        $themeColors?.state.error ||
-        '#c74141'}"
+    style="--hover-color: {computedHoverColor}"
 >
     <path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"
     ></path>
@@ -29,7 +33,6 @@
         cursor: pointer;
         transition: fill 0.2s ease;
     }
-
     .close-icon:hover {
         fill: var(--hover-color);
     }

@@ -1,17 +1,20 @@
-<script>
-    import { themeColors } from "@stores/theme";
+<script lang="ts">
+    import { currentTheme } from "@stores/theme";
+    let current_theme = $derived($currentTheme);
 
-    // Props opcionales
-    export let size = 36;
-    export let color = null; // Color personalizado
-    export let animated = true; // Si tiene animación de rotación al hover
+    interface Props {
+        size?: string;
+        clickable?: boolean;
+        animated?: boolean;
+    }
+    let { size = "2rem", clickable = true, animated = true }: Props = $props();
 </script>
 
 <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    fill={color || $themeColors?.text.secondary || "#a8a8a8"}
+    fill={current_theme?.text.secondary || "#a8a8a8"}
     viewBox="0 0 256 256"
     class="settings-icon"
     class:animated

@@ -1,4 +1,3 @@
-<!-- MainLayout.svelte -->
 <script lang="ts">
     import Sidebar from "@components/sidebar/Sidebar.svelte";
     import Titlebar from "./Titlebar.svelte";

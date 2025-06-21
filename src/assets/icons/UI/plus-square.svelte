@@ -1,17 +1,18 @@
-<script>
-    import { themeColors } from "@stores/theme";
-
-    // Props opcionales
-    export let size = 32;
-    export let color = null; // Color personalizado
-    export let clickable = true; // Si es clickeable o no
+<script lang="ts">
+    import { currentTheme } from "@stores/theme";
+    interface Props {
+        size: string;
+        clickable: boolean;
+    }
+    let current_theme = $derived($currentTheme);
+    let { size, clickable = true }: Props = $props();
 </script>
 
 <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
     height={size}
-    fill={color || $themeColors?.text.secondary || "#a9a8a9"}
+    fill={current_theme?.text.secondary || "#a9a8a9"}
     viewBox="0 0 256 256"
     class="plus-square-icon"
     class:clickable

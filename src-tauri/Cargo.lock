@@ -537,6 +537,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "communicator"
+version = "0.1.0"
+source = "git+https://github.com/santiagolxx/Communicator.git#068da92f60dcbc59b2dcf62137c474df73ef2ddd"
+dependencies = [
+ "futures",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.12",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "winapi",
+]
+
+[[package]]
 name = "concurrent-queue"
 version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -727,12 +742,15 @@ name = "cubic-launcher"
 version = "0.1.0"
 dependencies = [
  "better-panic",
+ "communicator",
+ "once_cell",
  "proton",
  "serde",
  "serde_json",
  "tauri",
  "tauri-build",
  "tauri-plugin-opener",
+ "tokio",
  "tracing",
  "tracing-subscriber",
 ]

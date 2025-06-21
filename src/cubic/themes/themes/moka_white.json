@@ -26,5 +26,10 @@
     "warning": "#f57c00",
     "success": "#388e3c",
     "info": "#1976d2"
+  },
+  "button": {
+    "base": "#f4f2f0",
+    "hover": "#e7e6e4",
+    "active": "#d1cec9"
   }
 }

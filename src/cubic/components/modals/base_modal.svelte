@@ -1,24 +1,19 @@
-<script>
-    import { createEventDispatcher } from "svelte";
+<script lang="ts">
     import Close from "@assets/icons/UI/close.svelte";
-
+    import { currentTheme } from "@stores/theme";
     // Props - including children snippet
     let { isOpen = $bindable(), title, children } = $props();
-
-    // Event dispatcher for custom events
-    const dispatch = createEventDispatcher();
 
     // Function to close modal
     function closeModal() {
         isOpen = false;
-        dispatch("close");
     }
 
     // Función personalizada para la transición
-    function modalTransition(node, { duration = 300 }) {
+    function modalTransition(node: Element, { duration = 300 }) {
         return {
             duration,
-            css: (t, u) => {
+            css: (t: number, u: number) => {
                 // t va de 0 a 1 (entrada), u va de 1 a 0 (salida)
                 const opacity = t;
                 const translateY = u * -300; // -300px cuando u=1 (inicio salida), 0 cuando u=0 (fin entrada)
@@ -35,14 +30,19 @@
 <div class="flex justify-center">
     {#if isOpen}
         <div
-            class="modal bg-stone-800 border border-stone-600"
+            class="modal"
+            style="
+            background-color: {$currentTheme?.background};
+            color: {$currentTheme?.text.primary};
+            border: 2px solid {$currentTheme?.border.default};
+            "
             transition:modalTransition={{ duration: 400 }}
         >
             <header class="modal-header">
                 <h2 class="modal-title">{title}</h2>
-                <div class="cursor-pointer" on:click={closeModal}>
-                    <Close />
-                </div>
+                <button onclick={closeModal}>
+                    <Close size="2rem" />
+                </button>
             </header>
             <hr />
             <div>
@@ -82,18 +82,6 @@
     .modal-title {
         font-size: 1.5rem;
         font-weight: 600;
-    }
-
-    /* Close button in header */
-    .modal-header .close-btn {
-        background: transparent;
-        border: none;
-        font-size: 1.5rem;
-        color: white;
-        cursor: pointer;
-        line-height: 1;
-        padding: 0;
-        transition: color 0.2s;
     }
 
     .modal-header .close-btn:hover {

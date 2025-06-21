@@ -1,10 +1,11 @@
 // stores/launcher.ts
 import { derived, writable } from "svelte/store";
+import { type Component } from "svelte";
 
 interface Instance {
   id: string;
   name: string;
-  icon: string;
+  icon: Component;
 }
 
 interface AppState {

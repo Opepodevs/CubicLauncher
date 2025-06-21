@@ -45,6 +45,7 @@ const themeSchema = z.object({
   accent: accentSchema,
   border: borderSchema,
   state: stateSchema,
+  button: accentSchema,
 });
 
 // Full theme schema

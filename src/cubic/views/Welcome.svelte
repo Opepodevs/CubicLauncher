@@ -5,52 +5,204 @@
     import BaseModal from "@components/modals/base_modal.svelte";
     import { currentTheme } from "@stores/theme";
 
-    const text_color = $derived($currentTheme?.text);
+    const current_theme = $derived($currentTheme);
+
     let isOpen = $state(false);
 
     const handle_close = () => {
         isOpen = false;
     };
+
     const handle_modal = () => {
         isOpen = !isOpen;
     };
 </script>
 
-<div class="flex items-center justify-center h-full">
-    <div class="text-center max-w-2xl">
-        <div class="w-24 h-24 mx-auto mb-6">
+<div class="launcher-container">
+    <div class="launcher-content">
+        <div class="logo-container">
             <Logo className="w-full h-full" />
         </div>
+
         <h1
-            class="text-3xl font-bold mb-4"
-            style="color: {text_color?.primary};"
+            class="launcher-title"
+            style="color: {current_theme?.text.primary};"
         >
-            Welcome to Launcher
+            Welcome to Cubic
         </h1>
-        <p class="text-lg mb-8" style="color: {text_color?.secondary};">
-            Create a new instance or play your most recent game
+
+        <p
+            class="launcher-description"
+            style="color: {current_theme?.text.secondary};"
+        >
+            Create a new instance or play your most recent one
         </p>
-        <div class="grid grid-cols-2 gap-6">
+
+        <div class="buttons-grid">
             <button
-                onclick={() => handle_modal()}
-                class="flex items-center justify-center p-2 gap-2 bg-stone-800 rounded-xl border border-stone-600 cursor-pointer hover:bg-stone-700 transition-all"
+                onclick={handle_modal}
+                class="btn-create"
+                style="
+                    background-color: {current_theme?.button.base};
+                    color: {current_theme?.text.primary};
+                    border-color: {current_theme?.border.default};
+                "
             >
-                <PlusSquare />
-                <span style="color: {text_color?.secondary};">Create new</span>
+                <PlusSquare size="2.25rem" clickable={true} />
+                <span>Create new instance</span>
             </button>
+
             <button
-                class="flex items-center justify-center p-2 gap-2 bg-stone-800 rounded-xl border border-stone-600 cursor-pointer hover:bg-stone-700 transition-all"
+                class="btn-play"
                 onclick={() => console.log("Play recent")}
+                style="
+                    background-color: {current_theme?.background};
+                    color: {current_theme?.text.secondary};
+                    border: 1px solid {current_theme?.border.default};
+                "
             >
                 <Controller />
-                <span style="color: {text_color?.secondary};">Play Recent</span>
+                <span>Play Recent</span>
             </button>
         </div>
 
-        <BaseModal {isOpen} title="asd" on:close={handle_close}>
+        <BaseModal {isOpen} title="Create New Instance" onclose={handle_close}>
             {#snippet children()}
-                <h1>xd</h1>
+                <div class="modal-content">
+                    <h2 style="color: {current_theme?.text.primary};">
+                        Configure your new instance
+                    </h2>
+                    <p style="color: {current_theme?.text.secondary};">
+                        Settings will go here...
+                    </p>
+                </div>
             {/snippet}
         </BaseModal>
     </div>
 </div>
+
+<style>
+    .launcher-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 2rem;
+    }
+
+    .launcher-content {
+        text-align: center;
+        max-width: 32rem;
+        width: 100%;
+    }
+
+    .logo-container {
+        width: 6rem;
+        height: 6rem;
+        margin: 0 auto 1.5rem auto;
+    }
+
+    .launcher-title {
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-primary, #1f2937);
+    }
+
+    .launcher-description {
+        font-size: 1.125rem;
+        margin-bottom: 2rem;
+        color: var(--text-secondary, #6b7280);
+    }
+
+    .buttons-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .btn-create {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem;
+        gap: 0.5rem;
+        border-radius: 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 1px solid;
+        font-size: 0.875rem;
+        font-weight: 500;
+        background-color: var(--accent-base, #3b82f6);
+        color: var(--text-secondary, #6b7280);
+        border-color: var(--border-default, #e5e7eb);
+    }
+
+    .btn-create:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+    }
+
+    .btn-create:active {
+        transform: translateY(0);
+    }
+
+    .btn-play {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem;
+        gap: 0.5rem;
+        background-color: #292524;
+        border-radius: 0.75rem;
+        border: 1px solid #57534e;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .btn-play:hover {
+        transform: translateY(-5px);
+    }
+
+    .btn-play:active {
+        transform: translateY(0);
+    }
+
+    .modal-content {
+        padding: 1rem;
+    }
+
+    .modal-content h2 {
+        margin-bottom: 0.5rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    .modal-content p {
+        margin: 0;
+        font-size: 0.875rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+        .launcher-container {
+            padding: 1rem;
+        }
+
+        .buttons-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .launcher-title {
+            font-size: 1.5rem;
+        }
+
+        .launcher-description {
+            font-size: 1rem;
+        }
+    }
+</style>

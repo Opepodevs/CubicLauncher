@@ -13,9 +13,9 @@
     "disabled": "#6f665d"
   },
   "accent": {
-    "base": "#b07e4f",
-    "hover": "#c09872",
-    "active": "#8d653f"
+    "base": "#aa774f",
+    "hover": "#c08b61",
+    "active": "#8a5d3a"
   },
   "border": {
     "default": "#534d46",
@@ -26,5 +26,10 @@
     "warning": "#ffa726",
     "success": "#81c784",
     "info": "#64b5f6"
+  },
+  "button": {
+    "base": "#1e1a15",
+    "hover": "#2a261f",
+    "active": "#14110d"
   }
 }

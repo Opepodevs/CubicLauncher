@@ -4,7 +4,7 @@
     import Logo from "@assets/Logo.svelte";
     import settings from "@assets/icons/UI/settings.svelte";
     import { appStore, instances } from "../../stores/launcher";
-    import { themeColors, isDarkTheme } from "../../stores/theme";
+    import { isDarkTheme } from "../../stores/theme";
 
     $: items = $instances.map((instance) => {
         return {
@@ -65,7 +65,7 @@
             {#each items as item (item.name)}
                 <SidebarItem
                     name={item.name}
-                    icon={item.icon}
+                    Icon={item.icon}
                     onClick={item.onClick}
                 />
             {/each}
@@ -75,7 +75,6 @@
     <div class="settings-container">
         <div class="separator"></div>
         <div
-            class="settings-item"
             on:click={handleSettingsClick}
             on:mouseenter={(e) => showTooltip(e, "Settings")}
             on:mouseleave={hideTooltip}
@@ -83,7 +82,13 @@
             tabindex="0"
             on:keydown={(e) => e.key === "Enter" && handleSettingsClick()}
         >
-            <SidebarItem name="Settings" icon={settings} />
+            <SidebarItem
+                name="Settings"
+                Icon={settings}
+                onClick={() => {
+                    console.log("xd");
+                }}
+            />
         </div>
     </div>
 

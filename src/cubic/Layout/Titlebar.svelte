@@ -4,6 +4,10 @@
     import { currentTheme } from "@stores/theme";
     import Logo from "@assets/Logo.svelte";
     import "../../css/titlebar.scss";
+    import { getCurrentWindow } from "@tauri-apps/api/window";
+    function startDrag() {
+        getCurrentWindow().startDragging();
+    }
     // Funciones para los controles de ventana que por ahora son dummy
     function minimizeLauncher() {
         console.log("Minimize clicked");
@@ -21,7 +25,7 @@
     const currentInstance = $derived($appStore.currentInstance);
 </script>
 
-<div class="titlebar bg-[{background}]">
+<div class="titlebar bg-[{background}]" onmousedown={startDrag}>
     <!-- Left spacer for balance -->
     <div class="spacer"></div>
 
@@ -38,7 +42,7 @@
     <!-- Window controls -->
     <div class="window-controls">
         <button
-            on:click={minimizeLauncher}
+            onclick={minimizeLauncher}
             class="control-button"
             aria-label="Minimize"
         >
@@ -53,7 +57,7 @@
         </button>
 
         <button
-            on:click={maximizeLauncher}
+            onclick={maximizeLauncher}
             class="control-button"
             aria-label="Maximize"
         >
@@ -72,7 +76,7 @@
         </button>
 
         <button
-            on:click={closeLauncher}
+            onclick={closeLauncher}
             class="control-button close-button"
             aria-label="Close"
         >
