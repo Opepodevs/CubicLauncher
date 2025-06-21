@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "name": "Moka",
+    "author": "CubicLauncher",
+    "tone": "dark"
+  },
+  "background": "#1e1a15",
+  "surface": "#3c332a",
+  "logo": "#e8e6e3",
+  "text": {
+    "primary": "#e8e6e3",
+    "secondary": "#b9b3ac",
+    "disabled": "#6f665d"
+  },
+  "accent": {
+    "base": "#b07e4f",
+    "hover": "#c09872",
+    "active": "#8d653f"
+  },
+  "border": {
+    "default": "#534d46",
+    "subtle": "#38332e"
+  },
+  "state": {
+    "error": "#ff6b6b",
+    "warning": "#ffa726",
+    "success": "#81c784",
+    "info": "#64b5f6"
+  }
+}

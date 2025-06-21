@@ -1,0 +1,74 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: 0.5rem;
+    border-right: 1px solid #4b5563; // stone-700
+
+    .logo-container {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: #1f2937; // stone-800
+        border-radius: 0.75rem;
+        padding: 0.5rem;
+        border: 1px solid #4b5563; // stone-700
+        cursor: pointer;
+        margin-bottom: 1rem;
+
+        .logo {
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+
+    .items-container {
+        flex: 1 1 0%;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+
+        .items-scroll {
+            height: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+
+            // Ocultar scrollbar
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+
+            &::-webkit-scrollbar {
+                display: none; /* Chrome, Safari and Opera */
+            }
+        }
+    }
+
+    .footer {
+        flex-shrink: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background-color: #4b5563; // stone-700
+            margin: 0.5rem 0;
+        }
+
+        .settings-button {
+            background-color: #1f2937; // stone-800
+            padding: 0.25rem;
+            border-radius: 0.75rem;
+            border: 1px solid #4b5563; // stone-700
+        }
+    }
+}
