@@ -21,7 +21,7 @@ const initialState: AppState = {
   instances: [],
   isLoading: false,
   isSettingsModalOpen: false,
-  isNewInstanceModalOpen: false,
+  isNewInstanceModalOpen: true,
 };
 // Store principal
 const appState = writable<AppState>(initialState);
@@ -72,7 +72,12 @@ function createAppStore() {
         isLoading: loading,
       }));
     },
-
+    handle_new_instance_modal() {
+      update((state) => ({
+        ...state,
+        isNewInstanceModalOpen: !state.isNewInstanceModalOpen,
+      }));
+    },
     reset() {
       set(initialState);
     },

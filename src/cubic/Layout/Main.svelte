@@ -14,6 +14,7 @@
     import { Themes } from "../types";
     import { onMount } from "svelte";
     import Welcome from "../views/Welcome.svelte";
+    import CreateInstanceModal from "@components/modals/createInstance/createInstanceModal.svelte";
 
     $: currentInstance = $appStore.currentInstance;
 
@@ -42,6 +43,7 @@
 
         <!-- Main Content -->
         <div class="main-content">
+            <CreateInstanceModal />
             <!-- {#if currentInstance}
                 <InstanceView instance={currentInstance} />
             {:else}

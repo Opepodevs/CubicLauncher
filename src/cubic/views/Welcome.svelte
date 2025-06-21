@@ -2,21 +2,10 @@
     import Controller from "@assets/icons/UI/controller.svelte";
     import PlusSquare from "@assets/icons/UI/plus-square.svelte";
     import Logo from "@assets/Logo.svelte";
-    import BaseModal from "@components/modals/base_modal.svelte";
     import { currentTheme } from "@stores/theme";
     import { t } from "@stores/language";
-
+    import { appStore } from "@stores/launcher";
     const current_theme = $derived($currentTheme);
-
-    let isOpen = $state(false);
-
-    const handle_close = () => {
-        isOpen = false;
-    };
-
-    const handle_modal = () => {
-        isOpen = !isOpen;
-    };
 </script>
 
 <div class="launcher-container">
@@ -41,7 +30,7 @@
 
         <div class="buttons-grid">
             <button
-                onclick={handle_modal}
+                onclick={appStore.handle_new_instance_modal}
                 class="btn-create"
                 style="
                     background-color: {current_theme?.button.base};
@@ -66,19 +55,6 @@
                 <span>{$t("welcome.play_recent")}</span>
             </button>
         </div>
-
-        <BaseModal {isOpen} title={$t("welcome.create_new_instance_title")}>
-            {#snippet children()}
-                <div class="modal-content">
-                    <h2 style="color: {current_theme?.text.primary};">
-                        {$t("welcome.configure_new_instance")}
-                    </h2>
-                    <p style="color: {current_theme?.text.secondary};">
-                        {$t("welcome.settings_placeholder")}
-                    </p>
-                </div>
-            {/snippet}
-        </BaseModal>
     </div>
 </div>
 

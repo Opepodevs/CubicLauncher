@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
     import { themeColors } from "@stores/theme";
+    interface Props {
+        size?: string;
+        color?: string;
+    }
 
-    // Props opcionales
-    export let size = 32;
-    export let color = null; // Color personalizado
+    let { size = "2rem", color }: Props = $props();
 </script>
 
 <svg
