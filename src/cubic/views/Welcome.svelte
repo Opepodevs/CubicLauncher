@@ -148,21 +148,6 @@
         transform: translateY(0);
     }
 
-    .modal-content {
-        padding: 1rem;
-    }
-
-    .modal-content h2 {
-        margin-bottom: 0.5rem;
-        font-size: 1.25rem;
-        font-weight: 600;
-    }
-
-    .modal-content p {
-        margin: 0;
-        font-size: 0.875rem;
-    }
-
     /* Responsive */
     @media (max-width: 640px) {
         .launcher-container {
