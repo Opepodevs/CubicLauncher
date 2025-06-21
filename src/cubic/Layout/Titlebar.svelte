@@ -5,30 +5,33 @@
     import Logo from "@assets/Logo.svelte";
     import "../../css/titlebar.scss";
     import { getCurrentWindow } from "@tauri-apps/api/window";
+    import {
+        hideLauncher,
+        closeLauncher,
+        maximizeLauncher,
+    } from "../libraries/backend";
+
     function startDrag() {
         getCurrentWindow().startDragging();
     }
-    // Funciones para los controles de ventana que por ahora son dummy
-    function minimizeLauncher() {
-        console.log("Minimize clicked");
-    }
 
-    function maximizeLauncher() {
-        console.log("Maximize clicked");
-    }
-
-    function closeLauncher() {
-        console.log("Close clicked");
+    // Prevent dragging when clicking controls
+    function stopPropagation(event: Event) {
+        event.stopPropagation();
     }
 
     const background = $derived($currentTheme?.background);
     const currentInstance = $derived($appStore.currentInstance);
 </script>
 
-<div class="titlebar bg-[{background}]" onmousedown={startDrag}>
+<div
+    class="titlebar bg-[{background}]"
+    onmousedown={startDrag}
+    role="button"
+    tabindex="-1"
+>
     <!-- Left spacer for balance -->
     <div class="spacer"></div>
-
     <!-- Center content -->
     <div class="center-content">
         <Logo width="1.5rem" height="1.5rem" />
@@ -38,13 +41,18 @@
             <span class="title-text">Cubic</span>
         {/if}
     </div>
-
     <!-- Window controls -->
-    <div class="window-controls">
+    <div
+        class="window-controls"
+        onmousedown={stopPropagation}
+        role="button"
+        tabindex="-1"
+    >
         <button
-            onclick={minimizeLauncher}
+            onclick={hideLauncher}
             class="control-button"
             aria-label="Minimize"
+            onmousedown={stopPropagation}
         >
             <svg width="12" height="12" viewBox="0 0 12 12">
                 <path
@@ -55,11 +63,11 @@
                 />
             </svg>
         </button>
-
         <button
             onclick={maximizeLauncher}
             class="control-button"
             aria-label="Maximize"
+            onmousedown={stopPropagation}
         >
             <svg width="12" height="12" viewBox="0 0 12 12">
                 <rect
@@ -74,11 +82,11 @@
                 />
             </svg>
         </button>
-
         <button
             onclick={closeLauncher}
             class="control-button close-button"
             aria-label="Close"
+            onmousedown={stopPropagation}
         >
             <svg width="12" height="12" viewBox="0 0 12 12">
                 <path
