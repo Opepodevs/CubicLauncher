@@ -1,0 +1,14 @@
+{
+  "language": {
+    "name": "Português (Brasil)"
+  },
+  "welcome": {
+    "title": "Bem-vindo ao Cubic",
+    "subtitle": "Crie uma nova instância ou jogue a mais recente",
+    "create_new_instance": "Criar nova instância",
+    "play_recent": "Jogar recente",
+    "create_new_instance_title": "Criar nova instância",
+    "configure_new_instance": "Configure sua nova instância",
+    "settings_placeholder": "As configurações irão aqui..."
+  }
+}
