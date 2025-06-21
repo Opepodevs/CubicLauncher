@@ -127,7 +127,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0.75rem;
+        padding: 0.5rem;
         gap: 0.5rem;
         border-radius: 0.75rem;
         cursor: pointer;
