@@ -3091,10 +3091,9 @@ dependencies = [
 [[package]]
 name = "proton"
 version = "0.1.0"
-source = "git+https://github.com/CubicLauncher/proton.git#5e0e452049c3e372dd5e7f4c05d1842d1cfb2982"
+source = "git+https://github.com/CubicLauncher/proton.git#c8bd548514e6b69c896252a9f31cad8b0d3e926c"
 dependencies = [
  "async_zip",
- "better-panic",
  "futures",
  "hex",
  "log",
@@ -3107,6 +3106,7 @@ dependencies = [
  "serde_json",
  "thiserror 2.0.12",
  "tokio",
+ "uuid",
 ]
 
 [[package]]

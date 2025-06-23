@@ -30,7 +30,7 @@
     ];
 
     // Reactivo para contenido actual de tab (evita función en template)
-    let currentTabContent = $state(
+    let CurrentTabContent = $state(
         tabs.find((tab) => tab.id === activeTab)?.content ?? null,
     );
 
@@ -67,8 +67,8 @@
         </nav>
 
         <section class="flex-1 h-full p-2 flex flex-col" role="tabpanel">
-            {#if currentTabContent}
-                <currentTabContent />
+            {#if CurrentTabContent}
+                <CurrentTabContent />
             {:else}
                 <div
                     class="flex items-center justify-center h-full text-stone-400"

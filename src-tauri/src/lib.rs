@@ -11,7 +11,11 @@ pub async fn run() {
     });
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![window::close_window])
+        .invoke_handler(tauri::generate_handler![
+            window::close_window,
+            window::minimize_window,
+            window::maximize_window,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
