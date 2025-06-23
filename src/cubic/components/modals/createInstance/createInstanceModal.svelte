@@ -4,9 +4,7 @@
     import Forge from "@components/modals/createInstance/tabs/forge.svelte";
     import controller from "@assets/icons/UI/controller.svelte";
     import Logo from "@assets/Logo.svelte";
-
     let activeTab = $state("general");
-
     // Predefine las tabs con contenido y iconos
     const tabs = [
         {
@@ -28,12 +26,10 @@
             content: Forge,
         },
     ];
-
     // Reactivo para contenido actual de tab (evita función en template)
     let CurrentTabContent = $state(
         tabs.find((tab) => tab.id === activeTab)?.content ?? null,
     );
-
     // Handler para click tabs: evitar función inline en template
     function selectTab(id: string) {
         activeTab = id;
@@ -43,7 +39,8 @@
 <BaseModal isOpen={$appStore.isNewInstanceModalOpen} title="xd">
     <div class="flex h-full">
         <nav
-            class="w-56 border-r border-[#272727ff] h-full flex flex-col space-y-0.5"
+            class="w-56 border-r h-full flex flex-col space-y-0.5"
+            style="border-color: var(--color-border-default)"
             aria-label="Tabs"
         >
             {#each tabs as { id, name, icon: Icon }}
@@ -51,11 +48,26 @@
                     type="button"
                     onclick={() => selectTab(id)}
                     class={`w-full text-left px-4 py-2.5 text-sm font-medium transition-colors flex items-center gap-2
-            ${
-                activeTab === id
-                    ? "bg-[#272727ff] text-[#d6d2d2ff] border-l-2 border-[#78716c]"
-                    : "text-[#d6d2d2ff]/60 hover:text-[#d6d2d2ff] hover:bg-[#272727ff]"
-            }`}
+            ${activeTab === id ? "border-l-2" : "hover:bg-opacity-50"}`}
+                    style={activeTab === id
+                        ? "background-color: var(--color-surface); color: var(--color-text-primary); border-left-color: var(--color-accent-base);"
+                        : "color: var(--color-text-secondary);"}
+                    onmouseenter={(e) => {
+                        if (activeTab !== id) {
+                            e.currentTarget.style.color =
+                                "var(--color-text-primary)";
+                            e.currentTarget.style.backgroundColor =
+                                "var(--color-surface)";
+                        }
+                    }}
+                    onmouseleave={(e) => {
+                        if (activeTab !== id) {
+                            e.currentTarget.style.color =
+                                "var(--color-text-secondary)";
+                            e.currentTarget.style.backgroundColor =
+                                "transparent";
+                        }
+                    }}
                     aria-selected={activeTab === id}
                     role="tab"
                     tabindex={activeTab === id ? 0 : -1}
@@ -65,13 +77,13 @@
                 </button>
             {/each}
         </nav>
-
         <section class="flex-1 h-full p-2 flex flex-col" role="tabpanel">
             {#if CurrentTabContent}
                 <CurrentTabContent />
             {:else}
                 <div
-                    class="flex items-center justify-center h-full text-stone-400"
+                    class="flex items-center justify-center h-full"
+                    style="color: var(--color-text-disabled)"
                 >
                     No content available for this tab
                 </div>

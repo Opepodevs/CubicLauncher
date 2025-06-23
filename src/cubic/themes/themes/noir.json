@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "name": "Noir",
+    "author": "CubicLauncher",
+    "tone": "dark"
+  },
+  "background": "#0b0b0b",
+  "surface": "#121212",
+  "logo": "#ffffff",
+  "text": {
+    "primary": "#ffffff",
+    "secondary": "#bbbbbb",
+    "disabled": "#555555"
+  },
+  "accent": {
+    "base": "#5e9cff",
+    "hover": "#81adff",
+    "active": "#3a7be0"
+  },
+  "border": {
+    "default": "#1f1f1f",
+    "subtle": "#151515"
+  },
+  "state": {
+    "error": "#ff5c5c",
+    "warning": "#ffc04d",
+    "success": "#66dd88",
+    "info": "#5fb0ff"
+  },
+  "button": {
+    "base": "#0b0b0b",
+    "hover": "#1a1a1a",
+    "active": "#000000"
+  }
+}

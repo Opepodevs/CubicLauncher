@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "name": "Nebula",
+    "author": "CubicLauncher",
+    "tone": "light"
+  },
+  "background": "#09070c",
+  "surface": "#120d1b",
+  "logo": "#e9e7ed",
+  "text": {
+    "primary": "#d6cfe2",
+    "secondary": "#ab99cb",
+    "disabled": "#6d5f85"
+  },
+  "accent": {
+    "base": "#8244ed",
+    "hover": "#a172f2",
+    "active": "#5913d2"
+  },
+  "border": {
+    "default": "#221636",
+    "subtle": "#120d1b"
+  },
+  "state": {
+    "error": "#ef5350",
+    "warning": "#ffb74d",
+    "success": "#81c784",
+    "info": "#42a5f5"
+  },
+  "button": {
+    "base": "#09070c",
+    "hover": "#1b1428",
+    "active": "#040405"
+  }
+}

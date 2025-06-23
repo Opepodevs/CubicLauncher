@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "name": "LTS",
+    "author": "CubicLauncher",
+    "tone": "dark"
+  },
+  "background": "#0a0a0a",
+  "surface": "#151014",
+  "logo": "#fce4ec",
+  "text": {
+    "primary": "#fce4ec",
+    "secondary": "#f8bbd0",
+    "disabled": "#6e5964"
+  },
+  "accent": {
+    "base": "#d32f2f",
+    "hover": "#e53935",
+    "active": "#b71c1c"
+  },
+  "border": {
+    "default": "#2a1c1f",
+    "subtle": "#1a1113"
+  },
+  "state": {
+    "error": "#ff1744",
+    "warning": "#ff8f00",
+    "success": "#66bb6a",
+    "info": "#f06292"
+  },
+  "button": {
+    "base": "#0a0a0a",
+    "hover": "#2c0f14",
+    "active": "#17070b"
+  }
+}

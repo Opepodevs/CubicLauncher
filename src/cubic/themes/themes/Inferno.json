@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "name": "Inferno",
+    "author": "CubicLauncher",
+    "tone": "light"
+  },
+  "background": "#0d0707",
+  "surface": "#1c0c0d",
+  "logo": "#eee6e7",
+  "text": {
+    "primary": "#e3cdce",
+    "secondary": "#cf9598",
+    "disabled": "#885c5e"
+  },
+  "accent": {
+    "base": "#fb3640",
+    "hover": "#fc6870",
+    "active": "#e1040f"
+  },
+  "border": {
+    "default": "#381315",
+    "subtle": "#1c0c0d"
+  },
+  "state": {
+    "error": "#ef5350",
+    "warning": "#ffb74d",
+    "success": "#81c784",
+    "info": "#42a5f5"
+  },
+  "button": {
+    "base": "#0d0707",
+    "hover": "#2a1214",
+    "active": "#060404"
+  }
+}

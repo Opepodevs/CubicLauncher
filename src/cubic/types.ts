@@ -68,4 +68,9 @@ export type FullTheme = z.infer<typeof fullThemeSchema>;
 export enum Themes {
   moka = "moka",
   moka_white = "moka_white",
+  noir = "noir",
+  forest = "forest",
+  ocean = "ocean",
+  LTS = "LTS",
+  nebula = "nebula",
 }
