@@ -1,7 +1,7 @@
+mod customization;
 mod discord;
 mod error;
 mod window;
-
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub async fn run() {
     better_panic::install();
