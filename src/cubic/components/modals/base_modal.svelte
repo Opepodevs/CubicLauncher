@@ -76,10 +76,6 @@
             border: none;
             cursor: pointer;
             padding: 0;
-
-            &:hover {
-                color: #ff5f5f;
-            }
         }
     }
 

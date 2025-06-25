@@ -2,11 +2,9 @@
     import Controller from "@assets/icons/UI/controller.svelte";
     import PlusSquare from "@assets/icons/UI/plus-square.svelte";
     import Logo from "@assets/Logo.svelte";
-    import { currentTheme, themeStore } from "@stores/theme";
+    import { currentTheme } from "@stores/theme";
     import { t } from "@stores/language";
     import { appStore } from "@stores/launcher";
-    import { invoke } from "@tauri-apps/api/core";
-    import { Themes } from "../types";
 
     // Usando $derived para crear valores computados reactivos
     const theme = $derived($currentTheme);

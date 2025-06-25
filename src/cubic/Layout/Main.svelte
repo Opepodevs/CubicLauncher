@@ -1,32 +1,22 @@
 <script lang="ts">
+    // Componentes
     import Sidebar from "@components/sidebar/Sidebar.svelte";
     import Titlebar from "./Titlebar.svelte";
-    // import InstanceView from "../views/InstanceView.svelte";
-    import NoInstanceView from "../views/Welcome.svelte";
-    import "@css/main.scss";
-    import { appStore } from "@stores/launcher";
-    import {
-        themeStore,
-        selectedTheme,
-        isDarkTheme,
-        isThemeLoading,
-    } from "@stores/theme";
-    import { Themes } from "../types";
-    import { onMount } from "svelte";
+    import InstanceView from "@views/Welcome.svelte";
     import Welcome from "../views/Welcome.svelte";
     import CreateInstanceModal from "@components/modals/createInstance/createInstanceModal.svelte";
 
-    $: currentInstance = $appStore.currentInstance;
+    // Tienda de instancias
+    import { appStore } from "@stores/launcher";
 
-    // async function setMokaTheme() {
-    //     await themeStore.switchTheme(Themes.moka);
-    // }
+    // Tienda y tema
+    import { themeStore } from "@stores/theme";
+    import { onMount } from "svelte";
+    import SettingsModal from "@components/modals/Settings/settingsModal.svelte";
 
-    // async function setMokaWhiteTheme() {
-    //     await themeStore.switchTheme(Themes.moka_white);
-    // }
+    // Reactividad explícita: derivamos currentInstance del store
+    let currentInstance = $derived($appStore.currentInstance);
 
-    // Initialize theme on mount
     onMount(async () => {
         await themeStore.initializeTheme();
     });
@@ -36,20 +26,20 @@
     <!-- Sidebar -->
     <Sidebar />
 
-    <!-- Main Section -->
+    <!-- Sección principal -->
     <div class="main-section">
-        <!-- Titlebar -->
+        <!-- Barra de título -->
         <Titlebar />
 
-        <!-- Main Content -->
+        <!-- Contenido -->
         <div class="main-content">
             <CreateInstanceModal />
-            <!-- {#if currentInstance}
-                <InstanceView instance={currentInstance} />
+            <SettingsModal />
+            {#if currentInstance}
+                <!-- <InstanceView {currentInstance} /> -->
             {:else}
-                <NoInstanceView />
-            {/if} -->
-            <Welcome />
+                <Welcome />
+            {/if}
         </div>
     </div>
 </div>

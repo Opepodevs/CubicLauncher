@@ -152,10 +152,6 @@ function applyThemeToDocument(theme: FullTheme) {
   root.style.setProperty("--color-state-warning", theme.state.warning);
   root.style.setProperty("--color-state-success", theme.state.success);
   root.style.setProperty("--color-state-info", theme.state.info);
-
-  // Agregar clase para el tono
-  root.classList.remove("theme-dark", "theme-light");
-  root.classList.add(`theme-${theme.meta.tone}`);
 }
 
 // Exportar el store

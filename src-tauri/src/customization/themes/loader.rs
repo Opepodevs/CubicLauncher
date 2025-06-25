@@ -10,7 +10,6 @@ use blake3::hash;
 use lz4_flex::decompress_size_prepended;
 
 /// Estructura que contiene el tema cargado con sus componentes
-#[derive(Debug, Clone)]
 pub struct LoadedTheme {
     pub manifest: Option<Manifest>,
     pub palette: Option<ColorPalette>,

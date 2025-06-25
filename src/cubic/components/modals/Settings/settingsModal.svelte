@@ -2,11 +2,13 @@
     import { appStore } from "@stores/launcher";
     import BaseModal from "../base_modal.svelte";
     import Forge from "@components/modals/createInstance/tabs/forge.svelte";
+    import About from "@components/modals/Settings/tabs/About.svelte";
     import controller from "@assets/icons/UI/controller.svelte";
-    let activeTab = $state("general");
+    let activeTab = $state("appearance");
+    let CurrentTabContent = $state(null);
     const tabs = [
         {
-            id: "general",
+            id: "appearance",
             name: "General",
             icon: controller,
             content: Forge,
@@ -18,23 +20,23 @@
             content: Forge,
         },
         {
-            id: "accounts",
-            name: "Luis roscasel",
+            id: "about",
+            name: "About",
             icon: controller,
-            content: Forge,
+            content: About,
         },
     ];
-    // Reactivo para contenido actual de tab (evita función en template)
-    let CurrentTabContent = $state(
-        tabs.find((tab) => tab.id === activeTab)?.content ?? null,
-    );
+    $effect(() => {
+        CurrentTabContent = tabs.find((tab) => tab.id === activeTab)?.content;
+    });
     // Handler para click tabs: evitar función inline en template
     function selectTab(id: string) {
         activeTab = id;
+        console.log(activeTab);
     }
 </script>
 
-<BaseModal isOpen={$appStore.isNewInstanceModalOpen} title="xd">
+<BaseModal isOpen={$appStore.isSettingsModalOpen} title="Settings">
     <div class="flex h-full">
         <nav
             class="w-56 border-r h-full flex flex-col space-y-0.5"

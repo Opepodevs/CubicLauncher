@@ -1,7 +1,7 @@
 {
-  "name": "cubic-launcher",
+  "name": "cubic",
   "version": "0.1.0",
-  "description": "",
+  "description": "A Minecraft launcher for the rest of us.",
   "type": "module",
   "scripts": {
     "dev": "vite dev",

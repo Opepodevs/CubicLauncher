@@ -54,6 +54,20 @@ export const fullThemeSchema = z.object({
   ...themeSchema.shape,
 });
 
+// Esquema para locales
+const welcomeSchema = z.object({
+  title: z.string(),
+  subtitle: z.string(),
+  create_new_instance: z.string(),
+  play_recent: z.string(),
+});
+const localeSchema = z.object({
+  language: z.object({
+    name: z.string(),
+  }),
+  welcome: welcomeSchema,
+});
+
 // TypeScript type inference
 export type HexColor = z.infer<typeof hexColor>;
 export type Meta = z.infer<typeof metaSchema>;

@@ -1,22 +1,21 @@
 <!-- Logo.svelte -->
-<script>
+<script lang="ts">
     import { currentTheme } from "@stores/theme";
 
-    // Props con valores por defecto
-    export let width = "512";
-    export let height = "512";
-    export let size = undefined;
-    export let color = undefined;
-    export let className = "";
-    export let id = "";
+    interface Props {
+        width: string | "512";
+        height: string | "512";
+        size: string | undefined;
+        color: string | undefined;
+        className: string | "";
+        id: string | "";
+    }
 
-    // Variables reactivas
-    let actualWidth, actualHeight, iconColor;
+    let props: Props = $props();
 
-    // Asignar valores reactivamente
-    $: actualWidth = size || width;
-    $: actualHeight = size || height;
-    $: iconColor = color || $currentTheme?.logo || "#ffffff";
+    let actualWidth = $state(props.size || props.width);
+    let actualHeight = $state(props.size || props.height);
+    let iconColor = $state(props.color || $currentTheme?.logo || "#ffffff");
 </script>
 
 <svg
@@ -24,8 +23,8 @@
     height={actualHeight}
     viewBox="0 0 512 512"
     version="1.1"
-    {id}
-    class="logo-icon {className}"
+    id={props.id}
+    class="logo-icon {props.className}"
     xml:space="preserve"
     xmlns="http://www.w3.org/2000/svg"
 >

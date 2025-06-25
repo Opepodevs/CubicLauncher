@@ -1,4 +1,5 @@
 <script lang="ts">
+    // TODO: Migrar a svelte 5
     import SidebarItem from "./SidebarItem.svelte";
     import SidebarTooltip from "./SidebarTooltip.svelte";
     import Logo from "@assets/Logo.svelte";
@@ -39,11 +40,7 @@
     }
 
     function handleSettingsClick() {
-        // Nota: toggleSettingsModel no existe en el store proporcionado
-        // Necesitarás agregarlo al store o cambiar esta funcionalidad
-        console.log(
-            "Settings clicked - implement toggleSettingsModel in store",
-        );
+        appStore.handle_settings_modal();
     }
 </script>
 

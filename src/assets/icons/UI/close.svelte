@@ -8,7 +8,7 @@
     let { size, hover_color }: Props = $props();
 
     let computedHoverColor = $derived(
-        hover_color || $currentTheme?.state.error || "#c74141",
+        hover_color || $currentTheme?.accent.hover!,
     );
 </script>
 
