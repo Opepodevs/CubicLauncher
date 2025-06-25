@@ -54,13 +54,17 @@
         tabindex="0"
         on:keydown={(e) => e.key === "Enter" && handleLogoClick()}
     >
-        <Logo size="2rem" width="2rem" height="2rem" color={undefined} className="" id="" />
+        <Logo
+            size="2rem"
+            width="2rem"
+            height="2rem"
+            color={undefined}
+            className=""
+            id=""
+        />
     </div>
 
     <div class="instances-container">
-        <button class="add-instance-btn" on:click={() => appStore.handle_new_instance_modal()} title="Crear nueva instancia">
-            +
-        </button>
         <div class="instances-scroll">
             {#each items as item (item.name)}
                 <SidebarItem Icon={item.icon} onClick={item.onClick} />
@@ -187,7 +191,7 @@
         border: none;
         border-radius: 50%;
         cursor: pointer;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         transition: background 0.2s;
     }
     .add-instance-btn:hover {
