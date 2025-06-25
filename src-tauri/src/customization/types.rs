@@ -1,15 +1,15 @@
-use bincode::Encode;
+use bincode::{Decode, Encode};
 use serde::{Deserialize, Serialize};
 
 pub type Color = [u8; 4];
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Encode)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Encode, Decode)]
 pub enum ThemeTone {
     Dark,
     Light,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, Encode)]
+#[derive(Debug, Clone, Serialize, Deserialize, Encode, Decode)]
 pub struct Manifest {
     pub manifest_version: u8,
     pub inherits_from: Option<String>,
@@ -19,7 +19,7 @@ pub struct Manifest {
     pub description: Option<String>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, Encode)]
+#[derive(Debug, Clone, Serialize, Deserialize, Encode, Decode)]
 pub struct ColorPalette {
     pub base: BaseColors,
     pub text: TextColors,
@@ -28,7 +28,7 @@ pub struct ColorPalette {
     pub button: ButtonColors,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, Encode)]
+#[derive(Debug, Clone, Serialize, Deserialize, Encode, Decode)]
 pub struct BaseColors {
     pub background: Color,
     pub logo: Color,
@@ -36,7 +36,7 @@ pub struct BaseColors {
     pub surface_variant: Color,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, Encode)]
+#[derive(Debug, Clone, Serialize, Deserialize, Encode, Decode)]
 pub struct TextColors {
     pub primary: Color,
     pub secondary: Color,
@@ -44,7 +44,7 @@ pub struct TextColors {
     pub on_surface: Color, // Texto sobre superficies
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, Encode)]
+#[derive(Debug, Clone, Serialize, Deserialize, Encode, Decode)]
 pub struct AccentColors {
     pub error: Color,
     pub warning: Color,
@@ -53,21 +53,21 @@ pub struct AccentColors {
     pub primary: Color, // Color primario del tema
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, Encode)]
+#[derive(Debug, Clone, Serialize, Deserialize, Encode, Decode)]
 pub struct BorderColors {
     pub default: Color,
     pub subtle: Color,
     pub focus: Color, // Para elementos enfocados
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, Encode)]
+#[derive(Debug, Clone, Serialize, Deserialize, Encode, Decode)]
 pub struct ButtonColors {
     pub primary: ButtonState,
     pub secondary: ButtonState,
     pub accent: ButtonState,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, Encode)]
+#[derive(Debug, Clone, Serialize, Deserialize, Encode, Decode)]
 pub struct ButtonState {
     pub base: Color,
     pub hover: Color,

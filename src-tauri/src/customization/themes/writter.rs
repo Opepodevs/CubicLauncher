@@ -1,12 +1,11 @@
 use std::fs::File;
 use std::io::{self, Write};
-use std::path::Path;
+use std::path::PathBuf;
 
 use crate::customization::types::{
     ColorPalette, CubicThemeHeader, CubicThemeTableEntry, CubicThemeTableFile, Manifest,
 };
-use crate::error::BackendResponse;
-use crate::error::{CubicInternalError, ResponseData};
+use crate::error::CubicInternalError;
 use blake3::hash;
 use lz4_flex::compress_prepend_size;
 
@@ -22,17 +21,11 @@ impl CubicThemeHeader {
     const MAGIC_BYTES: [u8; 4] = [b'C', b'B', b'T', b'H'];
     const VERSION: u8 = 1;
 
-    fn new(
-        files_count: u16,
-        table_size: u32,
-        total_size: u32,
-        theme_checksum: u32,
-        compressed: bool,
-    ) -> Self {
+    fn new(files_count: u16, table_size: u32, total_size: u32, theme_checksum: u32) -> Self {
         Self {
             magic_bytes: Self::MAGIC_BYTES,
             version: Self::VERSION,
-            flags: if compressed { 1 } else { 0 },
+            flags: 1, // Siempre comprimido
             files_number: files_count,
             table_offset: Self::HEADER_SIZE,
             table_size,
@@ -75,7 +68,7 @@ impl CubicThemeHeader {
 }
 
 impl CubicThemeTableEntry {
-    const ENTRY_SIZE: u32 = 13;
+    const ENTRY_SIZE: u32 = 15;
 
     fn new(offset: u32, file_size: u32, file_type: CubicThemeTableFile, checksum: u32) -> Self {
         Self {
@@ -112,11 +105,7 @@ fn calculate_checksum(data: &[u8]) -> u32 {
 }
 
 /// Escribe un archivo de tema CubicTheme (.cbth)
-pub fn write_cubic_theme<P: AsRef<Path>>(
-    path: P,
-    files: &[ThemeFile],
-    compressed: bool,
-) -> Result<(), CubicInternalError> {
+pub fn write_cubic_theme(path: PathBuf, files: &[ThemeFile]) -> Result<(), CubicInternalError> {
     if files.is_empty() {
         return Err(CubicInternalError::ThemeEncodeError);
     }
@@ -170,13 +159,7 @@ pub fn write_cubic_theme<P: AsRef<Path>>(
     let theme_checksum = calculate_checksum(&all_data);
 
     // Escribir header
-    let header = CubicThemeHeader::new(
-        files.len() as u16,
-        table_size,
-        total_size,
-        theme_checksum,
-        compressed,
-    );
+    let header = CubicThemeHeader::new(files.len() as u16, table_size, total_size, theme_checksum);
     header.write_to(&mut output_file)?;
 
     // Escribir tabla
@@ -198,8 +181,8 @@ pub fn write_cubic_theme<P: AsRef<Path>>(
     Ok(())
 }
 
-pub fn load_theme_file<P: AsRef<Path>>(
-    path: P,
+pub fn load_theme_file(
+    path: PathBuf,
     file_type: CubicThemeTableFile,
 ) -> Result<ThemeFile, CubicInternalError> {
     let data = std::fs::read(path).map_err(|e| match e.kind() {
@@ -225,12 +208,11 @@ pub fn serialize_palette(palette: &ColorPalette) -> Result<Vec<u8>, CubicInterna
 }
 
 /// Crea un tema completo desde componentes individuales
-pub fn create_theme<P: AsRef<Path>>(
-    output_path: P,
+pub fn create_theme(
+    output_path: PathBuf,
     manifest: Option<&Manifest>,
     palette: Option<&ColorPalette>,
-    background_path: Option<&Path>,
-    compressed: bool,
+    background_path: Option<PathBuf>,
 ) -> Result<(), CubicInternalError> {
     let mut files = Vec::new();
 
@@ -261,5 +243,5 @@ pub fn create_theme<P: AsRef<Path>>(
         return Err(CubicInternalError::ThemeEncodeError);
     }
 
-    write_cubic_theme(output_path, &files, compressed)
+    write_cubic_theme(output_path, &files)
 }

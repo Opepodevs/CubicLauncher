@@ -5,6 +5,7 @@
     import { currentTheme } from "@stores/theme";
     import { t } from "@stores/language";
     import { appStore } from "@stores/launcher";
+    import { invoke } from "@tauri-apps/api/core";
     const current_theme = $derived($currentTheme);
 </script>
 
@@ -41,7 +42,11 @@
                 <PlusSquare size="2.25rem" clickable={true} />
                 <span>{$t("welcome.create_new_instance")}</span>
             </button>
-
+            <button
+                onclick={() => {
+                    invoke("create_example_theme");
+                }}>xd</button
+            >
             <button
                 class="btn-play"
                 onclick={() => console.log("Play recent")}
