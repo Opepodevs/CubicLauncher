@@ -1,91 +1,108 @@
 <script lang="ts">
     import { appStore } from "@stores/launcher";
     import BaseModal from "../base_modal.svelte";
-    import Forge from "@components/modals/createInstance/tabs/forge.svelte";
-    import controller from "@assets/icons/UI/controller.svelte";
-    let activeTab = $state("general");
-    const tabs = [
-        {
-            id: "general",
-            name: "General",
-            icon: controller,
-            content: Forge,
-        },
-        {
-            id: "launcher",
-            name: "Launcher",
-            icon: controller,
-            content: Forge,
-        },
-        {
-            id: "accounts",
-            name: "Luis roscasel",
-            icon: controller,
-            content: Forge,
-        },
-    ];
-    // Reactivo para contenido actual de tab (evita función en template)
-    let CurrentTabContent = $state(
-        tabs.find((tab) => tab.id === activeTab)?.content ?? null,
-    );
-    // Handler para click tabs: evitar función inline en template
-    function selectTab(id: string) {
-        activeTab = id;
+    import vanillaIcon from "@assets/icons/minecraft/vanilla.svelte";
+    import fabricIcon from "@assets/icons/minecraft/fabric.svelte";
+    import QuiltIcon from "@assets/icons/minecraft/Quilt.svelte";
+    import { versions, type MinecraftVersion } from "@stores/launcher";
+
+    let name = "";
+    let selectedVersion = "";
+    let loader: "vanilla" | "forge" | "fabric" | "quilt" = "vanilla";
+    $: versionList = $versions;
+
+    // Icono según loader
+    $: icon = loader === "vanilla" ? vanillaIcon : loader === "fabric" ? fabricIcon : loader === "quilt" ? QuiltIcon : vanillaIcon;
+
+    function uuidv4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    function createInstance() {
+        if (!name.trim()) return;
+        appStore.addInstance({
+            id: uuidv4(),
+            name,
+            version: selectedVersion,
+            loader,
+            icon
+        });
+        appStore.handle_new_instance_modal(); // Cierra el modal
+        name = "";
+        selectedVersion = "";
+        loader = "vanilla";
     }
 </script>
 
-<BaseModal isOpen={$appStore.isNewInstanceModalOpen} title="xd">
-    <div class="flex h-full">
-        <nav
-            class="w-56 border-r h-full flex flex-col space-y-0.5"
-            style="border-color: var(--color-border-default)"
-            aria-label="Tabs"
-        >
-            {#each tabs as { id, name, icon: Icon }}
-                <button
-                    type="button"
-                    onclick={() => selectTab(id)}
-                    class={`w-full text-left px-4 py-2.5 text-sm font-medium transition-colors flex items-center gap-2
-            ${activeTab === id ? "border-l-2" : "hover:bg-opacity-50"}`}
-                    style={activeTab === id
-                        ? "background-color: var(--color-surface); color: var(--color-text-primary); border-left-color: var(--color-accent-base);"
-                        : "color: var(--color-text-secondary);"}
-                    onmouseenter={(e) => {
-                        if (activeTab !== id) {
-                            e.currentTarget.style.color =
-                                "var(--color-text-primary)";
-                            e.currentTarget.style.backgroundColor =
-                                "var(--color-surface)";
-                        }
-                    }}
-                    onmouseleave={(e) => {
-                        if (activeTab !== id) {
-                            e.currentTarget.style.color =
-                                "var(--color-text-secondary)";
-                            e.currentTarget.style.backgroundColor =
-                                "transparent";
-                        }
-                    }}
-                    aria-selected={activeTab === id}
-                    role="tab"
-                    tabindex={activeTab === id ? 0 : -1}
-                >
-                    <Icon size="24" />
-                    {name}
-                </button>
-            {/each}
-        </nav>
-        <section class="flex-1 h-full p-2 flex flex-col" role="tabpanel">
-            {#if CurrentTabContent}
-                <CurrentTabContent />
-            {:else}
-                <div
-                    class="flex items-center justify-center h-full"
-                    style="color: var(--color-text-disabled)"
-                >
-                    No content available for this tab
-                </div>
-            {/if}
-        </section>
-    </div>
+<BaseModal isOpen={$appStore.isNewInstanceModalOpen} title="Crear nueva instancia">
+    <form class="create-instance-form" on:submit|preventDefault={createInstance}>
+        <label>
+            Nombre:
+            <input type="text" bind:value={name} placeholder="Nombre de la instancia" required />
+        </label>
+        <label>
+            Versión:
+            <select bind:value={selectedVersion} required>
+                <option value="" disabled selected>Selecciona una versión</option>
+                {#each versionList as v}
+                    <option value={v.id}>{v.id} ({v.type})</option>
+                {/each}
+            </select>
+        </label>
+        <label>
+            Loader:
+            <select bind:value={loader}>
+                <option value="vanilla">Vanilla</option>
+                <option value="fabric">Fabric</option>
+                <option value="quilt">Quilt</option>
+            </select>
+        </label>
+        <button type="submit">Crear instancia</button>
+    </form>
 </BaseModal>
+
+<style lang="scss">
+.create-instance-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    min-width: 300px;
+    label {
+        display: flex;
+        flex-direction: column;
+        font-weight: 500;
+        color: var(--color-text-primary);
+        input, select {
+            margin-top: 0.25rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--color-border-default);
+            background: var(--color-surface);
+            color: var(--color-text-primary);
+            font-size: 1rem;
+        }
+    }
+    button[type="submit"] {
+        margin-top: 1rem;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        background: var(--color-accent-base);
+        color: #fff;
+        border: none;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s;
+        &:hover {
+            background: var(--color-accent-hover);
+        }
+        &:active {
+            background: var(--color-accent-active);
+        }
+    }
+}
+</style>

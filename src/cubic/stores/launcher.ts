@@ -5,6 +5,8 @@ import { type Component } from "svelte";
 interface Instance {
   id: string;
   name: string;
+  version: string;
+  loader: "vanilla" | "forge" | "fabric" | "quilt";
   icon: Component;
 }
 
@@ -100,3 +102,22 @@ export const currentInstance = derived(
 );
 export const instances = derived(appState, ($state) => $state.instances);
 export const isAppLoading = derived(appState, ($state) => $state.isLoading);
+
+export interface MinecraftVersion {
+  id: string;
+  type: "release" | "snapshot" | "old_beta" | "old_alpha";
+  releaseTime: string;
+}
+
+const initialVersions: MinecraftVersion[] = [
+  { id: "1.20.4", type: "release", releaseTime: "2023-12-01" },
+  { id: "1.20.3", type: "release", releaseTime: "2023-10-01" },
+  { id: "1.20", type: "release", releaseTime: "2023-06-01" },
+  { id: "1.19.4", type: "release", releaseTime: "2023-03-01" },
+  { id: "1.18.2", type: "release", releaseTime: "2022-02-28" },
+  // ... puedes agregar más o cargar desde una API
+];
+
+export const versions = writable<MinecraftVersion[]>(initialVersions);
+
+// Si quieres cargar desde una API, puedes agregar una función asíncrona aquí.
