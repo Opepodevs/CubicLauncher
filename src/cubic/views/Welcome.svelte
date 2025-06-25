@@ -2,11 +2,41 @@
     import Controller from "@assets/icons/UI/controller.svelte";
     import PlusSquare from "@assets/icons/UI/plus-square.svelte";
     import Logo from "@assets/Logo.svelte";
-    import { currentTheme } from "@stores/theme";
+    import { currentTheme, themeStore } from "@stores/theme";
     import { t } from "@stores/language";
     import { appStore } from "@stores/launcher";
     import { invoke } from "@tauri-apps/api/core";
-    const current_theme = $derived($currentTheme);
+    import { Themes } from "../types";
+
+    // Usando $derived para crear valores computados reactivos
+    const theme = $derived($currentTheme);
+    const welcomeTitle = $derived($t("welcome.title"));
+    const welcomeSubtitle = $derived($t("welcome.subtitle"));
+    const createButtonText = $derived($t("welcome.create_new_instance"));
+    const playButtonText = $derived($t("welcome.play_recent"));
+
+    // Estilos computados usando $derived
+    const titleStyle = $derived(`color: ${theme?.text.primary};`);
+    const descriptionStyle = $derived(`color: ${theme?.text.secondary};`);
+    const createButtonStyle = $derived(`
+        background-color: ${theme?.button.base};
+        color: ${theme?.text.primary};
+        border-color: ${theme?.border.default};
+    `);
+    const playButtonStyle = $derived(`
+        background-color: ${theme?.background};
+        color: ${theme?.text.secondary};
+        border: 1px solid ${theme?.border.default};
+    `);
+
+    // Funciones de manejo de eventos
+    const handleNewInstance = () => {
+        appStore.handle_new_instance_modal();
+    };
+
+    const handlePlayRecent = () => {
+        // todo: Terminar logica de botones
+    };
 </script>
 
 <div class="launcher-container">
@@ -15,49 +45,31 @@
             <Logo className="w-full h-full" />
         </div>
 
-        <h1
-            class="launcher-title"
-            style="color: {current_theme?.text.primary};"
-        >
-            {$t("welcome.title")}
+        <h1 class="launcher-title" style={titleStyle}>
+            {welcomeTitle}
         </h1>
 
-        <p
-            class="launcher-description"
-            style="color: {current_theme?.text.secondary};"
-        >
-            {$t("welcome.subtitle")}
+        <p class="launcher-description" style={descriptionStyle}>
+            {welcomeSubtitle}
         </p>
 
         <div class="buttons-grid">
             <button
-                onclick={appStore.handle_new_instance_modal}
+                onclick={handleNewInstance}
                 class="btn-create"
-                style="
-                    background-color: {current_theme?.button.base};
-                    color: {current_theme?.text.primary};
-                    border-color: {current_theme?.border.default};
-                "
+                style={createButtonStyle}
             >
                 <PlusSquare size="2.25rem" clickable={true} />
-                <span>{$t("welcome.create_new_instance")}</span>
+                <span>{createButtonText}</span>
             </button>
+
             <button
-                onclick={() => {
-                    invoke("create_example_theme");
-                }}>xd</button
-            >
-            <button
+                onclick={handlePlayRecent}
                 class="btn-play"
-                onclick={() => console.log("Play recent")}
-                style="
-                    background-color: {current_theme?.background};
-                    color: {current_theme?.text.secondary};
-                    border: 1px solid {current_theme?.border.default};
-                "
+                style={playButtonStyle}
             >
                 <Controller />
-                <span>{$t("welcome.play_recent")}</span>
+                <span>{playButtonText}</span>
             </button>
         </div>
     </div>
@@ -88,13 +100,11 @@
         font-size: 1.875rem;
         font-weight: 700;
         margin-bottom: 1rem;
-        color: var(--text-primary, #1f2937);
     }
 
     .launcher-description {
         font-size: 1.125rem;
         margin-bottom: 2rem;
-        color: var(--text-secondary, #6b7280);
     }
 
     .buttons-grid {
@@ -104,11 +114,12 @@
         margin-bottom: 2rem;
     }
 
-    .btn-create {
+    .btn-create,
+    .btn-play {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0.5rem;
+        padding: 0.75rem;
         gap: 0.5rem;
         border-radius: 0.75rem;
         cursor: pointer;
@@ -116,39 +127,23 @@
         border: 1px solid;
         font-size: 0.875rem;
         font-weight: 500;
-        background-color: var(--accent-base, #3b82f6);
-        color: var(--text-secondary, #6b7280);
-        border-color: var(--border-default, #e5e7eb);
     }
 
-    .btn-create:hover {
+    .btn-create {
+        padding: 0.5rem;
+    }
+
+    .btn-create:hover,
+    .btn-play:hover {
         opacity: 0.9;
         transform: translateY(-1px);
-    }
-
-    .btn-create:active {
-        transform: translateY(0);
-    }
-
-    .btn-play {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.75rem;
-        gap: 0.5rem;
-        background-color: #292524;
-        border-radius: 0.75rem;
-        border: 1px solid #57534e;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        font-size: 0.875rem;
-        font-weight: 500;
     }
 
     .btn-play:hover {
         transform: translateY(-5px);
     }
 
+    .btn-create:active,
     .btn-play:active {
         transform: translateY(0);
     }

@@ -15,7 +15,7 @@ pub async fn run() {
             window::close_window,
             window::minimize_window,
             window::maximize_window,
-            customization::tauri::create_example_theme,
+            customization::tauri::load_theme,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
