@@ -18,7 +18,7 @@ pub async fn minimize_window(window: Window) -> Result<BackendResponse, BackendR
     if !is_minimizable {
         warn!("La ventana no es minimizable");
         return Err(BackendResponse::error(
-            CubicInternalError::WindowIsNotMinimizable,
+            CubicInternalError::WindowNotMinimizable,
             Some("La ventana no puede minimizarse.".into()),
         ));
     }
@@ -62,7 +62,7 @@ pub async fn maximize_window(window: Window) -> Result<BackendResponse, BackendR
     if !is_maximizable {
         warn!("Se intentó maximizar la ventana, pero no es posible");
         return Err(BackendResponse::error(
-            CubicInternalError::WindowIsNotMaximizable,
+            CubicInternalError::WindowNotMaximizable,
             Some("La ventana no puede maximizarse.".into()),
         ));
     }
@@ -109,7 +109,7 @@ pub async fn close_window(window: Window) -> Result<BackendResponse, BackendResp
     if !is_closeable {
         warn!("Se intentó cerrar la ventana, pero no puede cerrarse");
         return Err(BackendResponse::error(
-            CubicInternalError::WindowIsNotClosable,
+            CubicInternalError::WindowNotClosable,
             Some("La ventana no puede cerrarse.".into()),
         ));
     }

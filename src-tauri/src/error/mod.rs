@@ -1,6 +1,4 @@
-use bincode::{Decode, Encode};
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 use thiserror::Error;
 
 //
@@ -31,7 +29,7 @@ impl BackendResponse {
             success: false,
             error: Some(ClientError {
                 error_type,
-                error_message: message,
+                message,
             }),
             data: None,
         }
@@ -42,7 +40,7 @@ impl BackendResponse {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ClientError {
     pub error_type: CubicInternalError,
-    pub error_message: Option<String>,
+    pub message: Option<String>,
 }
 
 /// Tipos de datos que puede retornar el backend
@@ -52,10 +50,7 @@ pub enum ResponseData {
     Settings(Vec<String>),
     Instances(Vec<String>),
     WindowAction(WindowActionResult),
-
-    // Internal
     InstanceData(Vec<u8>),
-    VersionRegistry(Option<VersionRegistry>),
 }
 
 /// Resultado de acciones sobre ventanas
@@ -75,56 +70,46 @@ pub enum WindowActionResult {
 pub enum CubicInternalError {
     #[error("No se pudo minimizar la ventana")]
     WindowMinimizeError,
-
     #[error("La ventana no puede minimizarse")]
-    WindowIsNotMinimizable,
-
+    WindowNotMinimizable,
     #[error("La ventana no puede maximizarse")]
-    WindowIsNotMaximizable,
-
+    WindowNotMaximizable,
     #[error("No se pudo maximizar la ventana")]
     WindowMaximizeError,
-
     #[error("La ventana no puede cerrarse")]
-    WindowIsNotClosable,
-
+    WindowNotClosable,
     #[error("No se pudo cerrar la ventana")]
     WindowCloseError,
-
     #[error("Error general del launcher")]
     LauncherError,
-
     #[error("Error de configuración")]
     ConfigError,
-
     #[error("Error de instancia de Minecraft")]
     MinecraftInstanceError,
-
     #[error("Error de red")]
     NetworkError,
-
     #[error("Error de IO")]
     FileError,
-
     #[error("Error de permisos")]
     PermissionError,
-
     #[error("Error de serialización/deserialización de instancia")]
     InstanceEncodeError,
-
-    #[error("Loader de mods invalido.")]
+    #[error("Loader de mods inválido")]
     InvalidLoader,
-    #[error("El archivo no existe.")]
-    FileENOENT,
-    #[error("Error de I/O desconocido.")]
-    FileUnknow,
+    #[error("El archivo no existe")]
+    FileNotFound,
+    #[error("Error de I/O desconocido")]
+    UnknownIOError,
     #[error("Error de decode en el archivo de registro de versiones")]
-    RegistryDecodeError(),
+    RegistryDecodeError,
     #[error("Error de encode en el archivo de registro de versiones")]
-    RegistryEncodeError(),
-}
-
-#[derive(Encode, Decode, Debug, Clone, Serialize, Deserialize)]
-pub struct VersionRegistry {
-    pub versions: HashMap<String, bool>,
+    RegistryEncodeError,
+    #[error("Error al guardar theme")]
+    ThemeEncodeError,
+    #[error("Error al leer theme")]
+    ThemeDecodeError,
+    #[error("Error al comprimir theme")]
+    ThemeCompressError,
+    #[error("Error al comprimir theme (El contenido excede los limites)")]
+    SizeErrorLimit,
 }
