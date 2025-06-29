@@ -5,7 +5,7 @@
     import About from "@components/modals/Settings/tabs/About.svelte";
     import controller from "@assets/icons/UI/controller.svelte";
     let activeTab = $state("appearance");
-    let CurrentTabContent = $state(null);
+    let CurrentTabContent = $state<typeof tabs[number]["content"] | null>(null);
     const tabs = [
         {
             id: "appearance",
@@ -27,8 +27,10 @@
         },
     ];
     $effect(() => {
-        CurrentTabContent = tabs.find((tab) => tab.id === activeTab)?.content;
+        const found = tabs.find((tab) => tab.id === activeTab);
+        CurrentTabContent = found?.content ?? null;
     });
+
     // Handler para click tabs: evitar función inline en template
     function selectTab(id: string) {
         activeTab = id;
