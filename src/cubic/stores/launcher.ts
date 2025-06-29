@@ -74,17 +74,24 @@ function createAppStore() {
         isLoading: loading,
       }));
     },
-    handle_new_instance_modal() {
-      update((state) => ({
-        ...state,
-        isNewInstanceModalOpen: !state.isNewInstanceModalOpen,
-      }));
-    },
-    handle_settings_modal() {
-      update((state) => ({
-        ...state,
-        isSettingsModalOpen: !state.isSettingsModalOpen,
-      }));
+    
+    handleModal(modalType: 'newInstance' | 'settings') {
+      update((state) => {
+        if (modalType === 'newInstance') {
+          return {
+            ...state,
+            isNewInstanceModalOpen: !state.isNewInstanceModalOpen,
+            isSettingsModalOpen: false,
+          };
+        } else if (modalType === 'settings') {
+          return {
+            ...state,
+            isSettingsModalOpen: !state.isSettingsModalOpen,
+            isNewInstanceModalOpen: false,
+          };
+        }
+        return state;
+      });
     },
     reset() {
       set(initialState);

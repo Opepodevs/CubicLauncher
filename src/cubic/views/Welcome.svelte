@@ -29,7 +29,7 @@
 
     // Funciones de manejo de eventos
     const handleNewInstance = () => {
-        appStore.handle_new_instance_modal();
+        appStore.handleModal('newInstance');
     };
 
     const handlePlayRecent = () => {

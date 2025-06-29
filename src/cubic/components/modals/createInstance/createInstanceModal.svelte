@@ -30,7 +30,7 @@
             loader,
             icon
         });
-        appStore.handle_new_instance_modal(); // Cierra el modal
+        appStore.handleModal('newInstance'); // Cierra el modal
         name = "";
         selectedVersion = "";
         loader = "vanilla";

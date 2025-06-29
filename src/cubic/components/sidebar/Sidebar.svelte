@@ -40,7 +40,7 @@
     }
 
     function handleSettingsClick() {
-        appStore.handle_settings_modal();
+        appStore.handleModal('settings');
     }
 </script>
 
