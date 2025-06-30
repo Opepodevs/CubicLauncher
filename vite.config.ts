@@ -1,16 +1,15 @@
-// vite.config.ts
 import { defineConfig } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
-import path from "node:path";
+import vue from "@vitejs/plugin-vue";
+import ViteDevTools from "vite-plugin-vue-devtools";
 import tailwindcss from "@tailwindcss/vite";
 
+// @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST;
 
-export default defineConfig({
-  plugins: [svelte(), tailwindcss()],
-  build: {
-    outDir: "build",
-  },
+// https://vite.dev/config/
+export default defineConfig(async () => ({
+  plugins: [vue(), tailwindcss(), ViteDevTools()],
+
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
   // 1. prevent Vite from obscuring rust errors
@@ -32,14 +31,4 @@ export default defineConfig({
       ignored: ["**/src-tauri/**"],
     },
   },
-  resolve: {
-    alias: {
-      "@components": path.resolve(__dirname, "src/cubic/components"),
-      "@layout": path.resolve(__dirname, "src/cubic/layout"),
-      "@assets": path.resolve(__dirname, "src/assets"),
-      "@stores": path.resolve(__dirname, "src/cubic/stores"),
-      "@css": path.resolve(__dirname, "src/css"),
-      "@views": path.resolve(__dirname, "src/cubic/views"),
-    },
-  },
-});
+}));

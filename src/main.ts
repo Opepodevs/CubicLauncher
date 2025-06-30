@@ -1,13 +1,7 @@
-// main.ts (o main.js)
-import App from "./App.svelte";
-import { initI18n } from "./cubic/stores/language";
-import { mount } from "svelte";
-async function bootstrap() {
-  await initI18n(); // Esto reemplaza tu load()
+import { createApp } from "vue";
+import "./assets/css/index.css";
+import { createPinia } from "pinia";
+import App from "./App.vue";
 
-  mount(App, {
-    target: document.getElementById("app")!,
-  });
-}
-
-bootstrap();
+const pinia = createPinia();
+createApp(App).use(pinia).mount("#app");

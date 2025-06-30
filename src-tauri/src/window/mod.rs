@@ -1,4 +1,4 @@
-use crate::error::{BackendResponse, CubicInternalError, ResponseData, WindowActionResult};
+use crate::types::{BackendResponse, CubicInternalError, ResponseData, WindowActionResult};
 use tauri::{command, Window};
 use tracing::{info, warn};
 
@@ -18,7 +18,7 @@ pub async fn minimize_window(window: Window) -> Result<BackendResponse, BackendR
     if !is_minimizable {
         warn!("La ventana no es minimizable");
         return Err(BackendResponse::error(
-            CubicInternalError::WindowNotMinimizable,
+            CubicInternalError::WindowIsNotMinimizable,
             Some("La ventana no puede minimizarse.".into()),
         ));
     }
@@ -62,7 +62,7 @@ pub async fn maximize_window(window: Window) -> Result<BackendResponse, BackendR
     if !is_maximizable {
         warn!("Se intentó maximizar la ventana, pero no es posible");
         return Err(BackendResponse::error(
-            CubicInternalError::WindowNotMaximizable,
+            CubicInternalError::WindowIsNotMaximizable,
             Some("La ventana no puede maximizarse.".into()),
         ));
     }
@@ -98,6 +98,7 @@ pub async fn maximize_window(window: Window) -> Result<BackendResponse, BackendR
 pub async fn close_window(window: Window) -> Result<BackendResponse, BackendResponse> {
     info!("Intentando cerrar la ventana");
 
+    // Verificamos si se puede cerrar
     let is_closeable = window.is_closable().map_err(|_| {
         warn!("No se pudo verificar si la ventana es cerrable");
         BackendResponse::error(
@@ -109,7 +110,7 @@ pub async fn close_window(window: Window) -> Result<BackendResponse, BackendResp
     if !is_closeable {
         warn!("Se intentó cerrar la ventana, pero no puede cerrarse");
         return Err(BackendResponse::error(
-            CubicInternalError::WindowNotClosable,
+            CubicInternalError::WindowIsNotClosable,
             Some("La ventana no puede cerrarse.".into()),
         ));
     }
