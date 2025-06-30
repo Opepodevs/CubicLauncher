@@ -23,7 +23,6 @@
 
 <script setup lang="ts">
 import type { Instance } from "../../types";
-import { colors } from "../../lib/themes/colors";
 import { useLanguageStore } from "../../stores/LanguageStore";
 const languageStore = useLanguageStore();
 import InstanceDetails from "./InstanceView/InstanceDetails.vue";

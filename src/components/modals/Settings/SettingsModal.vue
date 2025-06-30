@@ -80,13 +80,7 @@ const tabs = [
 		name: "Launcher",
 		icon: controller,
 		content: LauncherSettings,
-	},
-	{
-		id: "accounts",
-		name: "Luis roscasel",
-		icon: controller,
-		content: AccountSettings,
-	},
+	}
 ];
 
 // Method to get current tab content component

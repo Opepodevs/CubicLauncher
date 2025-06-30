@@ -55,36 +55,6 @@
 				"game": "Game",
 				"launcher": "Launcher",
 				"accounts": "Accounts"
-			},
-			"general": {
-				"language": "Language",
-				"about": "About",
-				"version": "Version",
-				"build": "Build",
-				"platform": "Platform"
-			},
-			"game": {
-				"minRam": "Minimum RAM",
-				"maxRam": "Maximum RAM",
-				"gameDirectory": "Game Directory",
-				"javaPath": "Java Path",
-				"browse": "Browse"
-			},
-			"launcher": {
-				"keepOpen": "Keep launcher open while playing",
-				"autoUpdate": "Check for updates automatically"
-			},
-			"accounts": {
-				"offlineAccount": "Offline Account",
-				"addAccount": "Add Account",
-				"usernamePlaceholder": "Username",
-				"add": "Add",
-				"logout": "Logout",
-				"select": "Select",
-				"remove": "Remove",
-				"addAccountPrompt": "Add an account to start playing",
-				"clear": "Clear",
-				"noUsername": "No username"
 			}
 		},
 		"views": {

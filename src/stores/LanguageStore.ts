@@ -31,7 +31,6 @@ export const useLanguageStore = defineStore("language", {
 					// Aquí indicamos que translation es un objeto con propiedades string
 					let translation: Record<string, any> | undefined =
 						translations[state.CurrentLanguage];
-
 					for (const k of keys) {
 						if (
 							translation &&
