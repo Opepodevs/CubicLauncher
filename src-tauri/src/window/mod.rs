@@ -1,4 +1,4 @@
-use crate::error::{BackendResponse, CubicInternalError, ResponseData, WindowActionResult};
+use crate::types::{BackendResponse, CubicInternalError, ResponseData, WindowActionResult};
 use tauri::{command, Window};
 use tracing::{info, warn};
 
@@ -98,6 +98,7 @@ pub async fn maximize_window(window: Window) -> Result<BackendResponse, BackendR
 pub async fn close_window(window: Window) -> Result<BackendResponse, BackendResponse> {
     info!("Intentando cerrar la ventana");
 
+    // Verificamos si se puede cerrar
     let is_closeable = window.is_closable().map_err(|_| {
         warn!("No se pudo verificar si la ventana es cerrable");
         BackendResponse::error(
