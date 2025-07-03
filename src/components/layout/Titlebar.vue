@@ -12,11 +12,11 @@ import { getIcon } from "../../lib/utils";
     <div class="w-24"></div>
 
     <div class="flex items-center gap-2.5 px-3  bg-stone-750/30 rounded-md border border-stone-600/30">
-      <component v-if="store.CurrentInstance" :is="getIcon(store.CurrentInstance.loader.loader)" class="w-6 h-6" />
+      <component v-if="store.CurrentInstance" :is="getIcon(store.CurrentInstance.loader)" class="w-6 h-6" />
       <logo v-else class="w-6 h-6" />
 
       <span class="text-sm text-stone-200 select-none">
-        {{ store.CurrentInstance ? `${store.CurrentInstance.name} — Cubic` : 'CubicLauncher' }}
+        {{ store.currentView === 'settings' ? 'Settings — Cubic' : store.CurrentInstance ? `${store.CurrentInstance.name} — Cubic` : 'CubicLauncher' }}
       </span>
     </div>
 

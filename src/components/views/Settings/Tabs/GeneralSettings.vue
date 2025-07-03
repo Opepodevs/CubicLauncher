@@ -3,4 +3,4 @@
         <!-- Configu -->
         <div></div>
     </div>
-</template>
+</template> 

@@ -39,7 +39,7 @@ const hideTooltip = () => {
     <!-- Logo -->
     <div
       class="flex-shrink-0 flex items-center gap-2 bg-stone-800 rounded-xl p-2 border border-stone-700 mb-4 cursor-pointer"
-      @click="store.CurrentInstance = null">
+      @click="store.navigateToWelcome">
       <logo class="w-8 h-8"/>
     </div>
 
@@ -70,7 +70,7 @@ const hideTooltip = () => {
       <!-- Settings Button -->
       <div
         class="w-10 h-10 flex items-center justify-center bg-stone-800 rounded-xl border border-stone-700 cursor-pointer hover:bg-stone-700 transition-colors relative"
-        @click="store.toggleSettingsModel" @mouseenter="showTooltip($event, 'Launcher.sidebar.settings')"
+        @click="store.navigateToSettings" @mouseenter="showTooltip($event, 'Launcher.sidebar.settings')"
         @mouseleave="hideTooltip">
         <Settings />
       </div>

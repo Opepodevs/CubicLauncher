@@ -7,8 +7,9 @@ export const useLauncherStore = defineStore("launcher", {
 	state: () => ({
 		CurrentInstance: null as Instance | null,
 		Instances: [] as Instance[],
-		isSettingsModalOpen: false,
 		isAddInstanceModalOpen: false,
+		currentView: 'welcome' as 'welcome' | 'instance' | 'settings',
+		previousView: 'welcome' as 'welcome' | 'instance' | 'settings',
 	}),
 	actions: {
 		async addInstance(instance: Instance) {
@@ -22,10 +23,21 @@ export const useLauncherStore = defineStore("launcher", {
 			}
 		},
 		setCurrentInstance(instance: Instance) {
+			this.previousView = this.currentView;
 			this.CurrentInstance = instance;
+			this.currentView = 'instance';
 		},
-		toggleSettingsModel() {
-			this.isSettingsModalOpen = !this.isSettingsModalOpen;
+		navigateToSettings() {
+			this.previousView = this.currentView;
+			this.currentView = 'settings';
+		},
+		navigateToWelcome() {
+			this.previousView = this.currentView;
+			this.currentView = 'welcome';
+			this.CurrentInstance = null;
+		},
+		goBack() {
+			this.currentView = this.previousView;
 		},
 		toggleAddInstanceModal() {
 			this.isAddInstanceModalOpen = !this.isAddInstanceModalOpen;
