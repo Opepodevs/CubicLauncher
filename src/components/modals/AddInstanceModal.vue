@@ -61,8 +61,6 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import Vanilla from "../../assets/icons/minecraft/vanilla.vue";
-import Fabric from "../../assets/icons/minecraft/fabric.vue";
-import Quilt from "../../assets/icons/minecraft/Quilt.vue";
 import { useLanguageStore } from "../../stores/LanguageStore";
 import { useLauncherStore } from "../../stores/LauncherStore";
 import BaseModal from "./BaseModal.vue";
