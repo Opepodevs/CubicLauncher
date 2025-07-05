@@ -1,6 +1,5 @@
 import type { Component } from "vue";
-import Quilt from "../../assets/icons/minecraft/Quilt.vue";
-import FabricIcon from "../../assets/icons/minecraft/fabric.vue";
+import Vanilla from "../../assets/icons/minecraft/vanilla.vue";
 import { useLanguageStore } from "../../stores/LanguageStore";
 
 export interface INoInstance {
@@ -17,22 +16,22 @@ export const getNoInstanceMessages = (): Record<number, INoInstance> => {
 		1: {
 			message: t("Launcher.noInstance.1.message"),
 			description: t("Launcher.noInstance.1.description"),
-			icon: FabricIcon,
+			icon: Vanilla,
 		},
 		2: {
 			message: t("Launcher.noInstance.2.message"),
 			description: t("Launcher.noInstance.2.description"),
-			icon: Quilt,
+			icon: Vanilla,
 		},
 		3: {
 			message: t("Launcher.noInstance.3.message"),
 			description: t("Launcher.noInstance.3.description"),
-			icon: FabricIcon,
+			icon: Vanilla,
 		},
 		4: {
 			message: t("Launcher.noInstance.4.message"),
 			description: t("Launcher.noInstance.4.description"),
-			icon: Quilt,
+			icon: Vanilla,
 		},
 	};
 };

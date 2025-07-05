@@ -33,15 +33,15 @@
         <label class="block text-sm font-medium text-stone-300">
           {{ languageStore.getTranslation('Launcher.addInstance.loader') }}
         </label>
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <button v-for="loader in loaders" :key="loader.id" @click="formData.loader = loader.id"
-            class="flex flex-col items-center p-3 border rounded-md transition-colors" :class="[
+            class="flex flex-col items-center p-4 border rounded-lg transition-all duration-200 hover:scale-105" :class="[
               formData.loader === loader.id
-                ? 'bg-stone-700 border-stone-500 text-stone-200'
-                : 'border-stone-600 text-stone-400 hover:bg-stone-700/50'
+                ? 'bg-stone-700 border-stone-500 text-stone-200 shadow-lg'
+                : 'border-stone-600 text-stone-400 hover:bg-stone-700/50 hover:border-stone-500'
             ]">
-            <component :is="loader.icon" class="w-8 h-8 mb-2" />
-            <span class="text-sm">{{ loader.name }}</span>
+            <component :is="loader.icon" class="w-10 h-10 mb-3" />
+            <span class="text-sm font-medium">{{ loader.name }}</span>
           </button>
         </div>
       </div>
@@ -60,9 +60,9 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import QuiltIcon from "../../assets/icons/minecraft/Quilt.vue";
-import FabricIcon from "../../assets/icons/minecraft/fabric.vue";
 import Vanilla from "../../assets/icons/minecraft/vanilla.vue";
+import Fabric from "../../assets/icons/minecraft/fabric.vue";
+import Quilt from "../../assets/icons/minecraft/Quilt.vue";
 import { useLanguageStore } from "../../stores/LanguageStore";
 import { useLauncherStore } from "../../stores/LauncherStore";
 import BaseModal from "./BaseModal.vue";
@@ -82,24 +82,12 @@ const loaders = [
     icon: Vanilla,
     EnumValue: Loaders.Vanilla,
   },
-  {
-    id: Loaders.Fabric,
-    name: "Fabric",
-    icon: FabricIcon,
-    EnumValue: Loaders.Fabric,
-  },
-  {
-    id: Loaders.Quilt,
-    name: "Quilt",
-    icon: QuiltIcon,
-    EnumValue: Loaders.Quilt,
-  },
 ];
 
 const formData = ref<{
   name: string;
   version: string;
-  loader: keyof typeof Loaders; // o directamente: loader: Loaders
+  loader: Loaders;
 }>({
   name: "",
   version: "",
