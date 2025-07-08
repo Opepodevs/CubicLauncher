@@ -52,10 +52,10 @@
 			"title": "Settings",
 			"tabs": {
 				"general": "General",
-				"game": "Game",
 				"launcher": "Launcher",
-				"accounts": "Accounts"
-			}
+				"account": "Account"
+			},
+			"goBack": "Go Back"
 		},
 		"views": {
 			"InstanceView": {
