@@ -26,12 +26,14 @@
           @click="activeTab = tab.id" 
           :class="[
             activeTab === tab.id
-              ? 'bg-[#272727ff] text-[#d6d2d2ff] border-l-2 border-[#78716c]'
+              ? 'bg-[#272727ff] text-[#d6d2d2ff] border-l-4 border-[#d6d2d2ff] shadow-lg ring-2 ring-[#d6d2d2ff]'
               : 'text-[#d6d2d2ff]/60 hover:text-[#d6d2d2ff] hover:bg-[#272727ff]',
             'w-full text-left px-4 py-3 text-sm font-medium transition-all duration-200 flex items-center gap-3 flex-shrink-0',
             isSidebarCollapsed ? 'justify-center px-2' : ''
           ]"
           :title="isSidebarCollapsed ? tab.name : ''"
+          tabindex="0"
+          :aria-current="activeTab === tab.id ? 'page' : undefined"
         >
           <!-- Vue Icon Component -->
           <component 
@@ -59,7 +61,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
             <span v-if="!isSidebarCollapsed">
-              {{ launcherStore.previousView === 'instance' ? 'Back to Instance' : 'Back to Home' }}
+              {{ languageStore.getTranslation('Launcher.settings.goBack') }}
             </span>
           </button>
         </div>
@@ -97,6 +99,7 @@ import GeneralSettings from "./Settings/Tabs/GeneralSettings.vue";
 // Import icons (SVG components)
 import controller from "../../assets/icons/UI/controller.vue";
 import settings from "../../assets/icons/UI/settings.vue";
+import plusSquare from "../../assets/icons/UI/plus-square.vue";
 
 const languageStore = useLanguageStore();
 const launcherStore = useLauncherStore();
@@ -147,19 +150,19 @@ onUnmounted(() => {
 const tabs = [
 	{
 		id: "general",
-		name: "General",
-		icon: controller,
+		name: languageStore.getTranslation('Launcher.settings.tabs.general'),
+		icon: plusSquare,
 		content: GeneralSettings,
 	},
 	{
 		id: "launcher",
-		name: "Launcher",
-		icon: controller,
+		name: languageStore.getTranslation('Launcher.settings.tabs.launcher'),
+		icon: settings,
 		content: LauncherSettings,
 	},
   {
     id: "account",
-    name: "Account",
+    name: languageStore.getTranslation('Launcher.settings.tabs.account'),
     icon: controller,
     content: AccountSettings,
   },
