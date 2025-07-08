@@ -8,20 +8,6 @@
       ]"
     >
       <div class="flex-shrink-0 p-4 border-b border-[#272727ff]">
-        <div class="flex items-center justify-between mb-2">
-          <button 
-            @click="goBack"
-            class="flex items-center gap-2 text-[#d6d2d2ff]/60 hover:text-[#d6d2d2ff] transition-colors"
-            :class="{ 'justify-center': isSidebarCollapsed }"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
-            <span v-if="!isSidebarCollapsed">
-              {{ launcherStore.previousView === 'instance' ? 'Back to Instance' : 'Back to Home' }}
-            </span>
-          </button>
-        </div>
         <h1 
           class="text-xl font-semibold text-[#d6d2d2ff] transition-all duration-300"
           :class="{ 'text-center text-lg': isSidebarCollapsed }"
@@ -61,6 +47,23 @@
           </span>
         </button>
       </nav>
+      <!-- Botón goBack abajo -->
+      <div class="flex-shrink-0 p-4 border-t border-[#272727ff] mt-auto">
+        <div class="flex items-center justify-between mb-2">
+          <button 
+            @click="goBack"
+            class="flex items-center gap-2 text-[#d6d2d2ff]/60 hover:text-[#d6d2d2ff] transition-colors"
+            :class="{ 'justify-center': isSidebarCollapsed }"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            <span v-if="!isSidebarCollapsed">
+              {{ launcherStore.previousView === 'instance' ? 'Back to Instance' : 'Back to Home' }}
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Tab Content -->
