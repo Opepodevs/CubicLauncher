@@ -38,40 +38,37 @@
             </div>
             <div class="p-6">
                 <p class="text-sm font-medium text-stone-200 mb-4">Modo de apariencia</p>
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="relative">
-                        <input type="radio" id="light" name="theme" value="light" class="sr-only" checked>
-                        <label for="light" class="flex flex-col items-center p-4 bg-stone-700 border-2 border-stone-600 rounded-lg cursor-pointer hover:bg-stone-600 transition-colors">
-                            <div class="w-8 h-8 bg-stone-400 rounded-full mb-2 flex items-center justify-center">
-                                <svg class="w-4 h-4 text-stone-800" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
-                                </svg>
+                <div class="flex flex-col gap-2">
+                    <label
+                        v-for="option in themeOptions"
+                        :key="option.value"
+                        class="flex items-center justify-between cursor-pointer rounded-lg border transition-colors duration-200 px-4 py-3 group"
+                        :class="[
+                            selectedTheme === option.value
+                                ? 'border-stone-400 bg-stone-700'
+                                : 'border-stone-600 bg-stone-800 hover:bg-stone-700',
+                        ]"
+                    >
+                        <div class="flex items-center gap-4">
+                            <span :class="['w-7 h-7 rounded-full border border-stone-500', option.preview]" />
+                            <div>
+                                <div class="text-stone-200 font-medium">{{ option.label }}</div>
+                                <div class="text-xs text-stone-400">{{ option.desc }}</div>
                             </div>
-                            <span class="text-sm font-medium text-stone-200">Claro</span>
-                        </label>
-                    </div>
-                    <div class="relative">
-                        <input type="radio" id="dark" name="theme" value="dark" class="sr-only">
-                        <label for="dark" class="flex flex-col items-center p-4 bg-stone-800 border-2 border-stone-600 rounded-lg cursor-pointer hover:bg-stone-700 transition-colors">
-                            <div class="w-8 h-8 bg-stone-600 rounded-full mb-2 flex items-center justify-center">
-                                <svg class="w-4 h-4 text-stone-200" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                                </svg>
-                            </div>
-                            <span class="text-sm font-medium text-stone-200">Oscuro</span>
-                        </label>
-                    </div>
-                    <div class="relative">
-                        <input type="radio" id="auto" name="theme" value="auto" class="sr-only">
-                        <label for="auto" class="flex flex-col items-center p-4 bg-stone-700 border-2 border-stone-600 rounded-lg cursor-pointer hover:bg-stone-600 transition-colors">
-                            <div class="w-8 h-8 bg-gradient-to-r from-stone-400 to-stone-600 rounded-full mb-2 flex items-center justify-center">
-                                <svg class="w-4 h-4 text-stone-800" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <span class="text-sm font-medium text-stone-200">Automático</span>
-                        </label>
-                    </div>
+                        </div>
+                        <input
+                            type="radio"
+                            name="theme"
+                            :value="option.value"
+                            v-model="selectedTheme"
+                            class="sr-only"
+                        />
+                        <span v-if="selectedTheme === option.value" class="flex items-center justify-center w-6 h-6 rounded-full bg-stone-600">
+                            <svg class="w-4 h-4 text-stone-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </span>
+                    </label>
                 </div>
             </div>
         </div>
@@ -181,5 +178,37 @@
 </template>
 
 <script setup lang="ts">
-// Component logic can be added here later
-</script> 
+import { ref } from 'vue'
+
+const selectedTheme = ref('light')
+
+const themeOptions = [
+    {
+        value: 'light',
+        label: 'Claro',
+        desc: 'Fondo claro, ideal para el día',
+        preview: 'bg-stone-100',
+    },
+    {
+        value: 'dark',
+        label: 'Oscuro',
+        desc: 'Fondo oscuro, ideal para la noche',
+        preview: 'bg-stone-900',
+    },
+    {
+        value: 'auto',
+        label: 'Automático',
+        desc: 'Se adapta a tu sistema',
+        preview: 'bg-gradient-to-r from-stone-100 to-stone-900',
+    }
+]
+</script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+</style> 
