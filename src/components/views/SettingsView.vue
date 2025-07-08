@@ -152,12 +152,6 @@ const tabs = [
 		content: GeneralSettings,
 	},
 	{
-		id: "game",
-		name: "Game",
-		icon: controller,
-		content: LauncherSettings,
-	},
-	{
 		id: "launcher",
 		name: "Launcher",
 		icon: controller,
